@@ -57,6 +57,7 @@ That's why I would recommend creating your own controller and create your own bl
 
 ### 1. Implement AdapterInterface.
 Implement an interface where you make an attempt to establish a connection with the service you need.
+Examples of fields usage are described in comments to this file.
 
 ### 2. Create routes configuration.
 Create etc/adminhtml/routes.xml
@@ -108,6 +109,10 @@ Do not forget to pass your new controller action to the block which is virtual n
         <arguments>
             <argument name="adapter" xsi:type="object">VendorName\ModuleName\Model\Adapter</argument>
             <argument name="controllerPath" xsi:type="string">validator/system_config/verify</argument>
+            <argument name="fieldMapping" xsi:type="array">
+                <item name="basic_auth_user" xsi:type="string">field_id_in_html_on_admin_area_page</item>
+                <item name="basic_auth_pass" xsi:type="string">another_field_id_in_html_on_admin_area_page</item>
+            </argument>
         </arguments>
     </virtualType>
 </config>

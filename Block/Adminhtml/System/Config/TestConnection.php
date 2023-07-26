@@ -29,11 +29,6 @@ class TestConnection extends Field
     protected $_template = 'PerfectCode_ConnectionButton::system/config/connection.phtml';
 
     /**
-     * @var AdapterInterface
-     */
-    private AdapterInterface $adapter;
-
-    /**
      * @var string module/controller/action
      */
     private string $controllerPath;
@@ -44,17 +39,20 @@ class TestConnection extends Field
      * @param Context $context
      * @param AdapterInterface $adapter
      * @param string $controllerPath
+     * @param array $fieldMapping
      * @param array $data
      */
     public function __construct(
         Context $context,
         AdapterInterface $adapter,
         string $controllerPath = self::TEST_CONNECTION_PATH,
+        array $fieldMapping = [],
         array $data = []
     ) {
         parent::__construct($context, $data);
         $this->adapter = $adapter;
         $this->controllerPath = $controllerPath;
+        $this->setFieldMapping($fieldMapping);
     }
 
     /**
@@ -78,9 +76,13 @@ class TestConnection extends Field
      */
     protected function _getElementHtml(AbstractElement $element): string
     {
+        $originalData = $element->getOriginalData();
         $this->addData(
             [
-                'button_label' => __($element->getOriginalData()['button_label']),
+                'button_label' => __($originalData['button_label']),
+                'html_id' => $element->getHtmlId(),
+                'ajax_url' => $this->getAjaxUrl(),
+                'field_mapping' => str_replace('"', '\\"', json_encode($this->getFieldMapping()))
             ]
         );
 

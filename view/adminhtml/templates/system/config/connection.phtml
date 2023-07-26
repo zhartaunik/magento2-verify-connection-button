@@ -2,22 +2,11 @@
 /** @var \PerfectCode\ConnectionButton\Block\Adminhtml\System\Config\TestConnection $block */
 /** @var \Magento\Framework\Escaper $escaper */
 ?>
-<div data-bind="scope: 'stamped-io-test-connection'" class="scalable">
-    <!-- ko template: getTemplate() --><!-- /ko -->
-</div>
-<script type="text/x-magento-init">
-    {
-        "*": {
-            "Magento_Ui/js/core/app": {
-                "components": {
-                    "stamped-io-test-connection": {
-                        "component": "PerfectCode_ConnectionButton/js/connection",
-                        "success": "<?= $escaper->escapeHtmlAttr($block->isConnectionSuccessful()) ?>",
-                        "url": "<?= $escaper->escapeJs($escaper->escapeUrl($block->getAjaxUrl())) ?>",
-                        "buttonLabel": "<?= $escaper->escapeHtml($block->getButtonLabel()) ?>"
-                    }
-                }
-            }
-        }
-    }
-</script>
+<button class="scalable" type="button" id="<?= $block->getHtmlId() ?>" data-mage-init='{"testConnection":{
+    "url": "<?= $escaper->escapeUrl($block->getAjaxUrl()) ?>",
+    "elementId": "<?= $block->getHtmlId() ?>",
+    "successText": "<?= $escaper->escapeHtmlAttr(__('Successful! Test again?')) ?>",
+    "failedText": "<?= $escaper->escapeHtmlAttr(__('Connection failed! Test again?')) ?>",
+    "fieldMapping": "<?= /* @noEscape */ $block->getFieldMapping() ?>"}, "validation": {}}'>
+    <span id="<?= $block->getHtmlId() ?>_result"><?= $escaper->escapeHtml($block->getButtonLabel()) ?></span>
+</button>
