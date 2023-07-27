@@ -21,6 +21,12 @@ To add a validation button, you need:
 
 ### 1. Implement AdapterInterface.
 Implement an interface where you make an attempt to establish a connection with the service you need.
+Examples of fields usage are described in comments to this file.
+
+```php
+namespace VendorName\ModuleName\Model;
+class Adapter implements \PerfectCode\ConnectionButton\Api\AdapterInterface
+```
 
 ### 2. Inject implementation from the previous step.
 Then add your Service Connector (Adapter) to `etc/adminhtml/di.xml`
@@ -36,6 +42,10 @@ Then add your Service Connector (Adapter) to `etc/adminhtml/di.xml`
     <type name="PerfectCode\ConnectionButton\Controller\Adminhtml\System\Config\Connection">
         <arguments>
             <argument name="adapter" xsi:type="object">VendorName\ModuleName\Model\Adapter</argument>
+            <argument name="fieldMapping" xsi:type="array">
+                <item name="basic_auth_user" xsi:type="string">field_id_in_html_on_admin_area_page</item>
+                <item name="basic_auth_pass" xsi:type="string">another_field_id_in_html_on_admin_area_page</item>
+            </argument>
         </arguments>
     </type>
 </config>
@@ -58,6 +68,11 @@ That's why I would recommend creating your own controller and create your own bl
 ### 1. Implement AdapterInterface.
 Implement an interface where you make an attempt to establish a connection with the service you need.
 Examples of fields usage are described in comments to this file.
+
+```php
+namespace VendorName\ModuleName\Model;
+class Adapter implements \PerfectCode\ConnectionButton\Api\AdapterInterface
+```
 
 ### 2. Create routes configuration.
 Create etc/adminhtml/routes.xml
